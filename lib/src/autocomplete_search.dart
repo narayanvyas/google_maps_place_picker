@@ -98,25 +98,7 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: provider,
-      child: RoundedFrame(
-        height: widget.height,
-        padding: const EdgeInsets.only(right: 10),
-        color: Theme.of(context).brightness == Brightness.dark ? Colors.black54 : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        elevation: 8.0,
-        child: Row(
-          children: <Widget>[
-            SizedBox(width: 10),
-            Icon(Icons.search),
-            SizedBox(width: 10),
-            Expanded(child: _buildSearchTextField()),
-            _buildTextClearIcon(),
-          ],
-        ),
-      ),
-    );
+    return Container();
   }
 
   Widget _buildSearchTextField() {
@@ -142,7 +124,9 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
               child: GestureDetector(
                 child: Icon(
                   Icons.clear,
-                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                 ),
                 onTap: () {
                   clearText();
@@ -172,7 +156,8 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
       return;
     }
 
-    if (!widget.autocompleteOnTrailingWhitespace! && controller.text.substring(controller.text.length - 1) == " ") {
+    if (!widget.autocompleteOnTrailingWhitespace! &&
+        controller.text.substring(controller.text.length - 1) == " ") {
       provider.debounceTimer?.cancel();
       return;
     }
@@ -181,7 +166,8 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
       provider.debounceTimer!.cancel();
     }
 
-    provider.debounceTimer = Timer(Duration(milliseconds: widget.debounceMilliseconds!), () {
+    provider.debounceTimer =
+        Timer(Duration(milliseconds: widget.debounceMilliseconds!), () {
       _searchPlace(controller.text.trim());
     });
   }
@@ -217,7 +203,8 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
   _displayOverlay(Widget overlayChild) {
     _clearOverlay();
 
-    final RenderBox? appBarRenderBox = widget.appBarKey.currentContext!.findRenderObject() as RenderBox?;
+    final RenderBox? appBarRenderBox =
+        widget.appBarKey.currentContext!.findRenderObject() as RenderBox?;
     final screenWidth = MediaQuery.of(context).size.width;
 
     overlayEntry = OverlayEntry(
@@ -277,10 +264,15 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
     PlaceProvider provider = PlaceProvider.of(context, listen: false);
 
     if (searchTerm.isNotEmpty) {
-      final PlacesAutocompleteResponse response = await provider.places.autocomplete(
+      final PlacesAutocompleteResponse response =
+          await provider.places.autocomplete(
         searchTerm,
         sessionToken: widget.sessionToken,
-        location: provider.currentPosition == null ? null : Location(lat: provider.currentPosition!.latitude, lng: provider.currentPosition!.longitude),
+        location: provider.currentPosition == null
+            ? null
+            : Location(
+                lat: provider.currentPosition!.latitude,
+                lng: provider.currentPosition!.longitude),
         offset: widget.autocompleteOffset,
         radius: widget.autocompleteRadius,
         language: widget.autocompleteLanguage,
@@ -290,7 +282,8 @@ class AutoCompleteSearchState extends State<AutoCompleteSearch> {
         region: widget.region,
       );
 
-      if (response.errorMessage?.isNotEmpty == true || response.status == "REQUEST_DENIED") {
+      if (response.errorMessage?.isNotEmpty == true ||
+          response.status == "REQUEST_DENIED") {
         if (widget.onSearchFailed != null) {
           widget.onSearchFailed!(response.status);
         }

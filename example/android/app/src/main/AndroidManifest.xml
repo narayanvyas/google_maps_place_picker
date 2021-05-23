@@ -16,6 +16,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="example"
         android:icon="@mipmap/ic_launcher">
+        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,7 +38,7 @@
         <!-- Google Map API -->
         <meta-data 
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB2TWHONvLIUNBz29hs82Ff7ZBWYa3Zy3Y"/>
+            android:value="AIzaSyBOf7uoH13UOQBspeja1F7YhYvo9oVQqAU"/>
             
     </application>
 </manifest>

@@ -233,7 +233,7 @@ class _PlacePickerState extends State<PlacePicker> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   titleSpacing: 0.0,
-                  // title: _buildSearchBar(context),
+                  title: _buildSearchBar(context),
                 ),
                 body: _buildMapWithLocation(),
               ),
