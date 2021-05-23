@@ -372,7 +372,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
             color: Colors.black,
             child: Text(
               "Select Location",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
